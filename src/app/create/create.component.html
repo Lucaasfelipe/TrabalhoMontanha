@@ -34,20 +34,42 @@
         </nav>
         
         <form id="new_entry">
-            <h2>Title</h2>
-            <br>
-            <input type="text" name="title" class="form-control col-md-12" required>
-            
-            <br>
-            <br>
-            
-            <h2>Content</h2>
-            <br>
-            <textarea name="content" id="content"></textarea>
-            
-            <br>
+            <h4>Nome</h4>
+          
+            <input type="text" name="Nome" class="content" required>
+                       
             <br>
             
+            <h4>Sobrenome</h4>
+            <input type="text" name="Sobrenome" required>
+            
+            <br>
+            <h4>E-mail</h4>
+            <input type="email" name="email" class="content" id="email">
+            
+            <br>
+
+            <h4>Rua/Av</h4>
+            <input name="Rua" type="text" id="Rua">
+            
+            <br>
+            <h4>Bairro</h4>
+            <input name="Bairro" id="Bairro">
+            <br>
+            
+            <h4>Número</h4>
+            <input name="numero" type="number" id="numero">
+            
+            <br>
+            <h4>Complemento</h4>
+            <input name="Complemento" id="Complemento">
+            
+            
+            <h4>Telefone</h4>
+            <input name="Telefone" type="tel" id="Telefone">
+      
+            
+
             <div class="text-right">
                 <button class="btn btn-large btn-primary">Criar cliente</button>
             </div>
@@ -56,9 +78,8 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
     
-    <script src="//cdn.ckeditor.com/4.5.10/standard/ckeditor.js"></script>
     
     <script>
                 var config = {
@@ -68,6 +89,7 @@
                     projectId: "trabmotanha",
                     storageBucket: "trabmotanha.appspot.com",
                     messagingSenderId: "611786546158",
+                    appId: "1:611786546158:web:bae40cb950503cec45ccff"
         };
         firebase.initializeApp(config);
 
@@ -84,8 +106,14 @@
                     e.preventDefault();
                     
                     var entry = {};
-                    entry.title = $(this).find('[name="title"]').val();
-                    entry.content = CKEDITOR.instances['content'].getData();
+                    entry.Nome = $(this).find('[name="Nome"]').val();
+                    entry.Sobrenome = CKEDITOR.instances['Sobrenome'].getData();
+                    entry.email = CKEDITOR.instances['email'].getData();
+                    entry.Rua = CKEDITOR.instances['Rua'].getData();
+                    entry.Bairro = CKEDITOR.instances['Bairro'].getData();
+                    entry.numero = CKEDITOR.instances['numero'].getData();
+                    entry.Complemento = CKEDITOR.instances['Complemento'].getData();
+                    entry.Telefone = CKEDITOR.instances['Telefone'].getData();
                     entry.createdAt = new Date().getTime();
                     entry.updatedAt = entry.createdAt;
                     entry.views = 0;
@@ -107,7 +135,7 @@
             }else{
                 // if not logged in
                 alert('Please login first')
-                window.location.href = 'login.html';
+                window.location.href = 'login';
                 
             }
         });

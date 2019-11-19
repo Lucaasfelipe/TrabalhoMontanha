@@ -40,19 +40,39 @@
         </nav>
         
         <form id="update_entry">
-            <h2>Title</h2>
+            <h4>Nome</h4>
+          
+            <input type="text" name="Nome" class="content" required>
+                       
             <br>
-            <input type="text" name="title" class="form-control col-md-12" required>
+            
+            <h4>Sobrenome</h4>
+            <input type="text" name="Sobrenome" required>
             
             <br>
-            <br>
-            
-            <h2>Content</h2>
-            <br>
-            <textarea name="content" id="content"></textarea>
+            <h4>E-mail</h4>
+            <input type="email" name="email" class="content" id="email">
             
             <br>
+
+            <h4>Rua/Av</h4>
+            <input name="Rua" type="text" id="Rua">
+            
             <br>
+            <h4>Bairro</h4>
+            <input name="Bairro" id="Bairro">
+            <br>
+            
+            <h4>Número</h4>
+            <input name="numero" type="number" id="numero">
+            
+            <br>
+            <h4>Complemento</h4>
+            <input name="Complemento" id="Complemento">
+            
+            
+            <h4>Telefone</h4>
+            <input name="Telefone" type="tel" id="Telefone">
             
             <div class="text-right">
                 <button class="btn btn-large btn-primary">Atualizar</button>
@@ -62,17 +82,20 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
     
     <script src="//cdn.ckeditor.com/4.5.10/standard/ckeditor.js"></script>
     
     <script>
         // firebase config
         var config = {
-            apiKey: "AIzaSyBqxEP00IKEgI163DnTRluzxIHwesx_QLQ",
-            authDomain: "example-crud-blog-d4912.firebaseapp.com",
-            databaseURL: "https://example-crud-blog-d4912.firebaseio.com",
-            storageBucket: "",
+            apiKey: "AIzaSyBS8gIOtlo0HgIdtvT9dFF4s_jpbkJ8ino",
+            authDomain: "trabmotanha.firebaseapp.com",
+            databaseURL: "https://trabmotanha.firebaseio.com",
+            projectId: "trabmotanha",
+            storageBucket: "trabmotanha.appspot.com",
+            messagingSenderId: "611786546158",
+            appId: "1:611786546158:web:bae40cb950503cec45ccff"
         };
         firebase.initializeApp(config);
 
@@ -86,7 +109,7 @@
                     Entry.once('value', function (r) { 
                         var entry = r.val();
                         
-                        $('#update_entry [name="title"]').val(entry.title);
+                        $('#update_entry [name="Nome"]').val(entry.Nome);
                         $('#update_entry [name="content"]').val(entry.content);
                         
                         CKEDITOR.replace('content');
