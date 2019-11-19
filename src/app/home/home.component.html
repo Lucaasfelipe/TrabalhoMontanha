@@ -1,3 +1,75 @@
-<p>
-  home works!
-</p>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Perfil</title>
+
+  
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="update">Atualizar cadastro</a>
+                </div>
+                <div class="collapse navbar-collapse" id="nav">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="home">Clientes cadastrados</a></li>
+                        <li><a href="create">Cliente novos</a></li>
+                        <li class="active"><a href="login">Sair</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <h1>Clientes cadastrados</h1>
+
+       
+        <br>
+        <br>
+
+        <pre id="profile"></pre>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+
+    <script>
+        // firebase config
+        var config = {
+            apiKey: "AIzaSyBS8gIOtlo0HgIdtvT9dFF4s_jpbkJ8ino",
+            authDomain: "trabmotanha.firebaseapp.com",
+            databaseURL: "https://trabmotanha.firebaseio.com",
+            projectId: "trabmotanha",
+            storageBucket: "trabmotanha.appspot.com",
+            messagingSenderId: "611786546158",
+        };
+        firebase.initializeApp(config);
+
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                console.log(user);
+                document.getElementById('profile').innerHTML = JSON.stringify(user, null, 2);
+                document.getElementById('logout').onclick = function () {
+                    if (confirm('Logout?')) {
+                        firebase.auth().signOut(); 
+                    }
+                };
+            } 
+        });
+    </script>
+
+
+</body>

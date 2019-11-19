@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,10 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
 import { FormsModule } from '@angular/forms';
 
 import { APP_BASE_HREF } from '@angular/common';
+import { CREATEComponent } from './create/create.component';
+import { UPDATEComponent } from './update/update.component';
+
+
 
 const firebaseAuth  = {
   apiKey: "AIzaSyBS8gIOtlo0HgIdtvT9dFF4s_jpbkJ8ino",
@@ -26,16 +30,22 @@ const firebaseAuth  = {
   declarations: [
     AppComponent,
     LoginComponent,
-    HOMEComponent
+    HOMEComponent,
+    CREATEComponent,
+    UPDATEComponent
+ 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseAuth),
     AngularFireDatabaseModule,
-    FormsModule
+    FormsModule,
+  
   ],
   providers: [{provide: APP_BASE_HREF, useValue: ''}],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  
 })
 export class AppModule { }

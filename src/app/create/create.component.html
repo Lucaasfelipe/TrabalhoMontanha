@@ -1,0 +1,115 @@
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Criar cliente</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
+
+ 
+</head>
+
+<body>
+    <div class="container">
+        <br>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="update">Atualizar cadastro</a>
+                </div>
+                <div class="collapse navbar-collapse" id="nav">
+                    <ul class="nav navbar-nav">
+                        <li><a href="home">Clientes cadastrados</a></li>
+                        <li class="active"><a href="create">Cliente novos</a></li>
+                        <li class="active"><a href="login">Sair</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <form id="new_entry">
+            <h2>Title</h2>
+            <br>
+            <input type="text" name="title" class="form-control col-md-12" required>
+            
+            <br>
+            <br>
+            
+            <h2>Content</h2>
+            <br>
+            <textarea name="content" id="content"></textarea>
+            
+            <br>
+            <br>
+            
+            <div class="text-right">
+                <button class="btn btn-large btn-primary">Criar cliente</button>
+            </div>
+        </form>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    
+    <script src="//cdn.ckeditor.com/4.5.10/standard/ckeditor.js"></script>
+    
+    <script>
+                var config = {
+                    apiKey: "AIzaSyBS8gIOtlo0HgIdtvT9dFF4s_jpbkJ8ino",
+                    authDomain: "trabmotanha.firebaseapp.com",
+                    databaseURL: "https://trabmotanha.firebaseio.com",
+                    projectId: "trabmotanha",
+                    storageBucket: "trabmotanha.appspot.com",
+                    messagingSenderId: "611786546158",
+        };
+        firebase.initializeApp(config);
+
+        
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) { 
+                
+         
+                CKEDITOR.replace('content');
+                
+
+                
+                $('#new_entry').submit(function(e){
+                    e.preventDefault();
+                    
+                    var entry = {};
+                    entry.title = $(this).find('[name="title"]').val();
+                    entry.content = CKEDITOR.instances['content'].getData();
+                    entry.createdAt = new Date().getTime();
+                    entry.updatedAt = entry.createdAt;
+                    entry.views = 0;
+                    entry.author = user.email;
+                    
+                    var Entry = firebase.database().ref('Entry');
+                    
+                    Entry.push(entry).then(function(data){
+                        window.location.href = 'entry.html?id='+data.getKey()
+                    }).catch(function(error){
+                        alert(error);
+                        console.error(error);
+                    })
+                    
+                    return false;
+                });
+                
+                
+            }else{
+                // if not logged in
+                alert('Please login first')
+                window.location.href = 'login.html';
+                
+            }
+        });
+        
+    </script>
